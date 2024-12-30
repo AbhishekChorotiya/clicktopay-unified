@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      let Vsb;
+
+      const srciTransactionId = "daea31ba-43ac-4b9d-b13b-283026ac7bd7";
+
+      const initialize = async () => {
+        Vsb = window.VSDK;
+
+        try {
+          await Vsb.initialize({
+            dpaTransactionOptions: {
+              transactionAmount: {
+                transactionAmount: "123.94",
+                transactionCurrencyCode: "USD",
+              },
+              dpaBillingPreference: "NONE",
+              dpaAcceptedBillingCountries: ["US", "CA"],
+              consumerNationalIdentifierRequested: false,
+              merchantCategoryCode: "4829",
+              merchantCountryCode: "US",
+              payloadTypeIndicator: "FULL",
+              merchantOrderId: "fd65f14b-8155-47f0-bfa9-65ff9df0f760",
+              paymentOptions: [
+                {
+                  dpaDynamicDataTtlMinutes: 2,
+                  dynamicDataType: "CARD_APPLICATION_CRYPTOGRAM_LONG_FORM",
+                },
+              ],
+              dpaLocale: "en_US",
+            },
+            correlationId: "my-id",
+          });
+
+          console.log("===> Coming here");
+
+          let consumerIdentity = {
+            identityProvider: "SRC",
+            identityValue: "abhishek.c@juspay.in",
+            identityType: "EMAIL_ADDRESS",
+          };
+
+          let cards = await Vsb.getCards({ consumerIdentity });
+
+          console.log("===> cards", cards);
+
+          let { actionCode } = cards;
+
+          console.log("===> actionCode", actionCode);
+        } catch (error) {
+          console.error("Error initializing SDK:", error);
+        }
+      };
+
+      const submitOTP = async () => {
+        try {
+          const otp = document.getElementById("otp").value;
+
+          let consumerIdentity = {
+            identityProvider: "SRC",
+            identityValue: "abhishek.c@juspay.in",
+            identityType: "EMAIL_ADDRESS",
+          };
+
+          const validationDataInput = { consumerIdentity, validationData: otp }; // Replace with your actual validation data
+          cards = await Vsb.getCards(validationDataInput);
+
+          console.log("===> Cards", cards);
+
+          let cardDetails = cards.profiles[0].maskedCards[0];
+          console.log("===> cardDetails", cardDetails);
+
+          let index = 0;
+          while (
+            index < cards.profiles[0].maskedCards.length &&
+            cardDetails.panLastFour !== "0110"
+          ) {
+            cardDetails = cards.profiles[0].maskedCards[index];
+            index++;
+          }
+
+          console.log("===> cardDetails", cardDetails);
+
+          console.log("===> srcDigitalCardId", cardDetails);
+
+          const newWindow = window.open("", "myWindow", "width=400,height=200");
+
+          const checkoutParameters = {
+            srcDigitalCardId: cardDetails.srcDigitalCardId,
+            payloadTypeIndicatorCheckout: "FULL",
+            windowRef: newWindow,
+            dpaTransactionOptions: {
+              authenticationPreferences: {
+                authenticationMethods: [
+                  {
+                    authenticationMethodType: "3DS",
+                    authenticationSubject: "CARDHOLDER",
+                    methodAttributes: {
+                      challengeIndicator: "01",
+                    },
+                  },
+                ],
+                payloadRequested: "AUTHENTICATED",
+              },
+              acquirerBIN: "455555",
+              acquirerMerchantId: "12345678",
+              merchantName: "TestMerchant",
+            },
+          };
+
+          const checkoutResponse = await Vsb.checkout(checkoutParameters);
+
+          newWindow.close();
+          console.log("===> My Response", checkoutResponse);
+        } catch (error) {
+          console.log("===> My Error", error);
+        }
+      };
+    </script>
+  </head>
+
+  <body>
+    <!-- <script
+        src="https://sandbox.secure.checkout.visa.com/checkout-widget/resources/js/integration/v2/sdk.js?dpaId=DR9OL39DLRIOON52GH3N211iL9Yc6gmK7hyeORNrr_IqNkGxE&cardBrands=visa,mastercard"></script> -->
+    <!-- <script src="https://sandbox.secure.checkout.visa.com/checkout-widget/resources/js/integration/v2/sdk.js?dpaId='JRG47J3KFNIQ7ASQN5DB21NO7TV3uh8_vx1lvzm7Kh8jQahhw'&cardBrands='visa,mastercard'&dpaClientId={dpaClientId}"></script> -->
+    <!-- <script src="https://sandbox.secure.checkout.visa.com/checkout-widget/resources/js/integration/v2/sdk.js?dpaId=<JRG47J3KFNIQ7ASQN5DB21NO7TV3uh8_vx1lvzm7Kh8jQahhw>&locale=en_US&cardBrands=visa,mastercard"></script> -->
+    <script src="https://sandbox.secure.checkout.visa.com/checkout-widget/resources/js/integration/v2/sdk.js?dpaId=498WCF39JVQVH1UK4TGG21leLAj_MJQoapP5f12IanfEYaSno&locale=en_US&cardBrands=visa,mastercard&dpaClientId=TestMerchant"></script>
+    <h1>Unified Visa Click To Pay</h1>
+    <button onclick="initialize()">Initialize</button><br /><br />
+    <label for="fname">OTP:</label>
+    <input id="otp" type="text" id="fname" name="fname" /><br /><br />
+    <button onclick="submitOTP()">Submit OTP</button><br /><br />
+    <iframe id="ctpId"></iframe>
+  </body>
+</html>
