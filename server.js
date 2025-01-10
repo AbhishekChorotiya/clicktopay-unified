@@ -1,5 +1,8 @@
 const express = require("express");
 const app = express();
+const path = require("path");
+
+app.use(express.static(path.join(__dirname, 'visaUnifiedV2')));
 
 app.get("/script.js", (req, res) => {
   const params = req.query;

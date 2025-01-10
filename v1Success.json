@@ -1,0 +1,81 @@
+{
+    "callid": "7528497740611515801",
+    "partialShippingAddress": {
+        "countryCode": "US",
+        "postalCode": "90056"
+    },
+    "paymentMethodType": "PAN",
+    "idToken": "eyJraWQiOiJvdXRib3VuZF90ZXN0IiwidHlwIjoiSldUK2V4dC5pZF90b2tlbiIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIzMUpVM2Z6dEIyanY4RWtROFBNckRnaXZOVmF2aXU3aEVwTVQ4c0pVRWVvPSIsImF1ZCI6WyJodHRwczovL3VjdHAuanVzcGF5LmNvbSIsImh0dHBzOi8vcXd3dy5hZXhwLXN0YXRpYy5jb20iLCJodHRwczovL3d3dy52aXNhLmNvbSIsImh0dHBzOi8vc3JjLmRpc2NvdmVyLmNvbSIsImh0dHBzOi8vd3d3LmFtZXJpY2FuZXhwcmVzcy5jb20iLCJodHRwczovL3Rlc3QuY29tIiwiaHR0cHM6Ly9tYXN0ZXJjYXJkLmNvbSIsImh0dHBzOi8vd3d3LnZpdnlhbnRlc3QuY29tIl0sImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhbXIiOlsiZW1haWxfb3RwIiwib3RwIiwic3drIl0sImF1dGhfdGltZSI6MTczNTgwNjg1NiwiaXNzIjoiaHR0cHM6Ly93d3cudmlzYS5jb20iLCJzcmNfZW1haWxfbWFzayI6ImFiaCoqQGp1c3BheS5pbiIsImV4cCI6MTczNjE0ODEzOSwiaWF0IjoxNzM2MTQ3NjU5LCJqdGkiOiJPVEkyTUdFeE1tWXROVEZpTVMwMFptRTRMV0ZtTnpjdFlqVmpNbUkyTXpKaVlUUmwiLCJlbWFpbCI6IjMxSlUzZnp0QjJqdjhFa1E4UE1yRGdpdk5WYXZpdTdoRXBNVDhzSlVFZW89In0.WPPVa-uOe5W5MIEa6MOdwJISEz8iOWRM0NUZrcN9eYfmJOgwxMuqWkkLDHriybZrFLTGk-4bujKx3YBTFbfuhRzr5a4eUoyC-_-gq3kWFGQb9badsSmoi4EmP8YFD5RGwcMYlKWVX3HoRovllUGuHpSW3vviVl7Nk2FH6K3DEGLMq2ysArccriks5WavhJSCsE0b66dBXuPXUq0Tg-rsrOdBqNQlwyihegIFy0klLTlsnUgWbaDE7Pbv4LGmVwqp4Ic085Y99VWEQ8n7pF5Kyh2whyiXWZSEKU2gBCUXZKqKa9HhuOzDeIIs435RIxlWyUkE-wqeOTgwVhXHttWBDQ",
+    "unbindAppInstance": false,
+    "dcfActionCode": "COMPLETE",
+    "vInitRequest": {
+        "apikey": "498WCF39JVQVH1UK4TGG21leLAj_MJQoapP5f12IanfEYaSno",
+        "paymentRequest": {
+            "currencyCode": "USD",
+            "subtotal": 10,
+            "merchantRequestId": "Merchant defined request ID",
+            "discount": "1.00",
+            "giftWrap": "2.00",
+            "misc": "1.00",
+            "shippingHandling": "2.00",
+            "tax": "2.00",
+            "total": 16,
+            "orderId": "Merchant defined order ID",
+            "description": "...corp Product",
+            "promoCode": "Merchant defined promo code",
+            "customData": {
+                "nvPair": [
+                    {
+                        "name": "customName1",
+                        "value": "customValue1"
+                    },
+                    {
+                        "name": "customName2",
+                        "value": "customValue2"
+                    }
+                ]
+            }
+        },
+        "sourceId": "Merchant Defined Source ID",
+        "settings": {
+            "countryCode": "US",
+            "customerSupportUrl": "www....Corp.support.com",
+            "dataLevel": "SUMMARY",
+            "displayName": "...Corp",
+            "locale": "en_US",
+            "logoUrl": "www.Some_Image_URL.gif",
+            "payment": {
+                "acceptCanadianVisaDebit": "true",
+                "billingCountries": [
+                    "US",
+                    "CA"
+                ],
+                "cardBrands": [
+                    "VISA",
+                    "MASTERCARD"
+                ]
+            },
+            "review": {
+                "message": "Merchant defined message",
+                "buttonAction": "CONTINUE"
+            },
+            "shipping": {
+                "acceptedRegions": [
+                    "US",
+                    "CA"
+                ],
+                "collectShipping": "true"
+            },
+            "websiteUrl": "www....Corp.com",
+            "widgetStyle": "OVERLAY"
+        },
+        "browserLocale": "en_US",
+        "clientId": "7fe778da-9f05-7d7a-4fff-10fe00d76602",
+        "currencyFormat": "currencyCode ###,###,###.##",
+        "displayName": "...Corp",
+        "enableUserDataPrefill": false,
+        "guestCheckout": false,
+        "logoUrl": "www.Some_Image_URL.gif",
+        "parentUrl": "http://127.0.0.1:5500/"
+    }
+}
