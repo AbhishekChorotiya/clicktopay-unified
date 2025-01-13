@@ -21,18 +21,7 @@ function initCheckoutButton(queryString, v2Config) {
     Vsb = window.VSDK;
 
     try {
-      await Vsb.initialize({
-        dpaTransactionOptions: {
-          dpaLocale: "en_US",
-          transactionAmount: {
-            transactionAmount: "100",
-            transactionCurrencyCode: "USD",
-          },
-          dpaAcceptedBillingCountries: ["US", "CA"],
-          merchantCountryCode: "US",
-          merchantOrderId: "1234567890",
-        },
-      });
+      await Vsb.initialize(v2Config);
       if (consumerEmail) {
         getCardsList();
       } else {
@@ -116,6 +105,7 @@ function createIframe(iframeDiv) {
   const iframe = document.createElement("iframe");
   iframe.style.width = "100%";
   iframe.style.height = "100%";
+  iframe.style.border = "none";
   iframeDiv.appendChild(iframe);
   return iframe;
 }
@@ -159,6 +149,7 @@ function createOverlay() {
   document.body.appendChild(overlayDiv);
   overlayDiv.addEventListener("click", () => {
     document.body.removeChild(overlayDiv);
+    v1Callbacks.canceled();
   });
   return overlayDiv;
 }
@@ -223,10 +214,6 @@ async function handleCheckout(srcDigitalCardId) {
             },
           ],
           payloadRequested: "AUTHENTICATED",
-        },
-        authenticationMethod: {
-          authenticationMethodType: "EMAIL_OTP",
-          authenticationSubject: "CARD",
         },
         acquirerBIN: "455555",
         acquirerMerchantId: "12345678",
