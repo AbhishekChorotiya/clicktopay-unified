@@ -27,6 +27,9 @@
             buttonAction: "Continue",
           },
           dataLevel: "SUMMARY",
+          acquirerBIN: "455555",
+          acquirerMerchantId: "12345678",
+          merchantName: "TestMerchant",
         },
         paymentRequest: {
           merchantRequestId: "Merchant defined request ID",
@@ -48,6 +51,9 @@
             ],
           },
         },
+        acquirerBIN: "455555",
+        acquirerMerchantId: "12345678",
+        merchantName: "TestMerchant",
       });
 
       V.on("payment.success", function (payment) {

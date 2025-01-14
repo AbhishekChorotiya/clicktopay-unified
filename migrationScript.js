@@ -5,6 +5,11 @@ let v1Callbacks = {
 };
 
 let consumerEmail = window.localStorage.getItem("consumerEmail") || null;
+const checkoutParams = {
+  acquirerBIN: null,
+  acquirerMerchantId: null,
+  merchantName: null,
+};
 
 function initCheckoutButton(queryString, v2Config) {
   console.log(v2Config);
@@ -215,9 +220,9 @@ async function handleCheckout(srcDigitalCardId) {
           ],
           payloadRequested: "AUTHENTICATED",
         },
-        acquirerBIN: "455555",
-        acquirerMerchantId: "12345678",
-        merchantName: "TestMerchant",
+        acquirerBIN: checkoutParams?.acquirerBIN,
+        acquirerMerchantId: checkoutParams?.acquirerMerchantId,
+        merchantName: checkoutParams?.merchantName,
       },
     };
 
@@ -277,6 +282,23 @@ function loadVisaV2SDK(dpaId, callback) {
 const v1CheckoutFuctions = {
   init: (initConfig) => {
     const v1Config = initConfig;
+    const requiredParams = [
+      "apikey",
+      "acquirerBIN",
+      "acquirerMerchantId",
+      "merchantName",
+    ];
+    let hasRequiredData = true;
+    for (let param of requiredParams) {
+      if (!v1Config?.[param]) {
+        console.error("Missing required init parameter:", param);
+        hasRequiredData = false;
+      }
+    }
+    if (!hasRequiredData) return;
+    checkoutParams.acquirerBIN = v1Config.acquirerBIN;
+    checkoutParams.acquirerMerchantId = v1Config.acquirerMerchantId;
+    checkoutParams.merchantName = v1Config.merchantName;
     const cardBrands = initConfig?.settings?.payment?.cardBrands;
     let queryString = "";
     if (cardBrands?.length) {
